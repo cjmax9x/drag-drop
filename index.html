@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Drap - Drop</title>
+</head>
+<body>
+    <div class="app">
+        <h3 class="title">Drag and drop item in empty box</h3>
+        <h3 class="title-1">Kéo và thả hình vào ô</h3>
+        <div class="container">
+            <div id="image" draggable="true"></div>
+        </div>
+
+        <div class="container">
+            
+        </div>
+        <div class="container">
+
+        </div>
+        <div class="container" >
+            <div id="image-1" draggable="true"></div>
+        </div>
+        <div class="container">
+
+        </div>
+    </div>
+    <script>
+        let containerEles = document.querySelectorAll('.container')
+        let imgEle = document.querySelector('#image')
+        let imgEle1 = document.querySelector('#image-1')
+
+            imgEle.ondragstart = function(e){
+                e.dataTransfer.setData("text", e.target.id);
+            }
+            imgEle1.ondragstart = function(e){
+                e.dataTransfer.setData("text", e.target.id);
+            }
+        
+
+        for(let i = 0; i<containerEles.length; i++){
+            containerEles[i].addEventListener('dragover', function(e){
+                e.preventDefault()
+            })
+            containerEles[i].addEventListener('drop', function(e){
+                e.preventDefault();
+                if(this.children.length == 0){
+                    let data = e.dataTransfer.getData("text");
+                    this.appendChild(document.getElementById(data));
+                } 
+            })
+        }
+    </script>
+</body>
+</html>
